@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combat Tiers | ANKITCRAFTFIRE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/skinview3d@latest/dist/skinview3d.bundle.js"></script>
+</head>
+<body class="p-4 md:p-8">
+
+    <header class="max-w-6xl mx-auto flex justify-between items-center mb-8">
+        <div>
+            <p class="text-[10px] text-gray-600 tracking-[3px] uppercase">Developer</p>
+            <h2 class="text-xl font-black bg-gradient-to-r from-red-500 to-orange-400 bg-clip-text text-transparent">ANKITCRAFTFIRE MADE BY</h2>
+        </div>
+        <a href="https://discord.gg/z8Mgz9Qv" target="_blank" class="bg-[#5865F2] hover:scale-110 transition p-3 rounded-full shadow-lg shadow-[#5865f2]/20">
+            <i class="fab fa-discord text-2xl text-white"></i>
+        </a>
+    </header>
+
+    <div class="text-center mb-10">
+        <h1 class="text-5xl md:text-6xl font-black italic uppercase tracking-tighter">Combat <span class="text-red-600">TIERS</span></h1>
+        <p class="text-gray-500 text-[10px] tracking-[5px] mt-2">OFFICIAL RANKING SYSTEM</p>
+    </div>
+
+    <div class="max-w-6xl mx-auto mb-10">
+        <div class="flex overflow-x-auto space-x-3 pb-4 no-scrollbar justify-start md:justify-center">
+            <button class="tab-btn active" onclick="switchTab('Overall')">OVERALL</button>
+            <button class="tab-btn" onclick="switchTab('NetheritePotion')">NETHERITE POT</button>
+            <button class="tab-btn" onclick="switchTab('DiamondPotion')">DIAMOND POT</button>
+            <button class="tab-btn" onclick="switchTab('Crystals')">CRYSTALS</button>
+            <button class="tab-btn" onclick="switchTab('Swords')">SWORDS</button>
+            <button class="tab-btn" onclick="switchTab('Axe')">AXE</button>
+            <button class="tab-btn" onclick="switchTab('UHC')">UHC</button>
+            <button class="tab-btn" onclick="switchTab('SMP')">SMP</button>
+            <button class="tab-btn" onclick="switchTab('Mace')">MACE</button>
+            <button class="tab-btn" onclick="switchTab('CartPvP')">CART PVP</button>
+            <button class="tab-btn" onclick="switchTab('DiamondSMP')">DIAMOND SMP</button>
+        </div>
+    </div>
+
+    <div id="tiers-container" class="max-w-4xl mx-auto px-2">
+        </div>
+
+    <div id="skinModal">
+        <div class="bg-[#161618] p-8 rounded-2xl border border-gray-800 shadow-2xl relative text-center max-w-sm w-full mx-4">
+            <span class="absolute top-4 right-6 text-3xl text-gray-500 cursor-pointer hover:text-white" onclick="closeSkinModal()">&times;</span>
+            <div id="skinCanvasContainer" class="mx-auto"></div>
+            <div class="mt-6">
+                <h3 id="modalName" class="text-3xl font-bold mb-1 tracking-tight text-white"></h3>
+                <p id="modalTierBadge"></p>
+                <div class="mt-4 py-2 px-4 bg-black/40 rounded-xl inline-block">
+                    <p class="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Performance Value</p>
+                    <span id="modalPts" class="text-yellow-400 text-xl font-mono font-bold"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
