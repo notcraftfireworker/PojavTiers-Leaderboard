@@ -35,27 +35,17 @@ const playersData = [
 
 let currentView = 'Overall';
 
-// 3. Tab Switching Logic (SABSE IMPORTANT)
-function switchTab(viewName) {
-    console.log("Switching to:", viewName); // Console mein check karne ke liye
-    currentView = viewName;
-
-    // Buttons ka color change karne ke liye
-    const allButtons = document.querySelectorAll('.tab-btn');
-    allButtons.forEach(btn => {
-        // Button ke text ko normalize karke match karna
-        const btnText = btn.getAttribute('onclick').match(/'([^']+)'/)[1];
-        if (btnText === viewName) {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
-        }
+// 3. Tab Switching Logic
+function switchTab(view) {
+    currentView = view;
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        const onclickAttr = btn.getAttribute('onclick');
+        btn.classList.toggle('active', onclickAttr.includes(`'${view}'`));
     });
-
-    renderTiers(); // List ko refresh karein
+    renderTiers();
 }
 
-// Grade calculation
+// 4. Grade Calculation
 function getGrade(totalPoints) {
     if (totalPoints >= 300) return { name: "Combat Grandmaster", class: "c-gm" };
     if (totalPoints >= 150) return { name: "Combat Master", class: "c-m" };
@@ -64,12 +54,13 @@ function getGrade(totalPoints) {
     return { name: "Unranked", class: "text-gray-500" };
 }
 
+// 5. Render Leaderboard
 function renderTiers() {
     const container = document.getElementById('tiers-container');
     container.innerHTML = '';
+    let globalRank = 1; // Rank Fix: Sabko sahi number dene ke liye
 
     if (currentView === 'Overall') {
-        // OVERALL LEADERBOARD
         const processed = playersData.map(p => {
             let total = 0;
             for (let m in p.ranks) total += tierPoints[p.ranks[m]] || 0;
@@ -83,35 +74,44 @@ function renderTiers() {
 
         ["Combat Grandmaster", "Combat Master", "Combat Ace", "Combat Novice", "Unranked"].forEach(g => {
             if (!groups[g]) return;
-            let rows = groups[g].map((p, i) => `
-                <div class="flex items-center justify-between p-5 hover:bg-white/5 transition cursor-pointer border-b border-gray-900/50" onclick="openSkinModal('${p.name}', '${p.totalPoints} PTS', '${g}', '${p.grade.class}')">
+            
+            let rows = groups[g].map((p) => {
+                const r = globalRank++; 
+                return `
+                <div class="flex items-center justify-between p-5 hover:bg-white/5 transition cursor-pointer border-b border-gray-900/40" onclick="openSkinModal('${p.name}', '${p.totalPoints} PTS', '${g}', '${p.grade.class}')">
                     <div class="flex items-center space-x-6">
-                        <span class="text-gray-800 font-bold w-6">#${i + 1}</span>
-                        <img src="https://mc-heads.net/avatar/${p.name}/48" class="w-10 h-10 rounded shadow-md">
-                        <span class="font-bold text-lg">${p.name}</span>
+                        <span class="text-gray-700 font-black w-8">#${r}</span>
+                        <img src="https://mc-heads.net/avatar/${p.name}/48" class="w-10 h-10 rounded shadow-lg">
+                        <span class="font-bold text-lg text-white">${p.name}</span>
                     </div>
-                    <div class="text-yellow-400 font-black">${p.totalPoints}</div>
-                </div>`).join('');
-            container.innerHTML += `<div class="tier-card"><div class="tier-header"><h2 class="${groups[g][0].grade.class} font-black uppercase italic">${g}</h2></div><div>${rows}</div></div>`;
-        });
+                    <div class="text-yellow-400 font-black font-mono">${p.totalPoints}</div>
+                </div>`;
+            }).join('');
 
+            container.innerHTML += `
+                <div class="tier-card mb-8">
+                    <div class="tier-header">
+                        <h2 class="${groups[g][0].grade.class} font-black uppercase italic tracking-tighter">${g}</h2>
+                    </div>
+                    <div class="divide-y divide-gray-900/20">${rows}</div>
+                </div>`;
+        });
     } else {
-        // SPECIFIC GAMEMODE LEADERBOARD
         const sorted = [...playersData]
             .filter(p => p.ranks[currentView] && p.ranks[currentView] !== "None")
             .sort((a, b) => (tierPoints[b.ranks[currentView]] || 0) - (tierPoints[a.ranks[currentView]] || 0));
 
         if (sorted.length === 0) {
-            container.innerHTML = `<p class="text-center text-gray-600 mt-10 font-bold uppercase tracking-widest">No players ranked in ${currentView}</p>`;
+            container.innerHTML = `<p class="text-center text-gray-600 mt-20 font-bold uppercase tracking-widest">No players ranked in ${currentView}</p>`;
             return;
         }
 
         let rows = sorted.map((p, i) => `
-            <div class="flex items-center justify-between p-5 hover:bg-white/5 transition cursor-pointer border-b border-gray-900/50" onclick="openSkinModal('${p.name}', '${p.ranks[currentView]}', '${currentView}', 'text-white')">
+            <div class="flex items-center justify-between p-5 hover:bg-white/5 transition cursor-pointer border-b border-gray-900/40" onclick="openSkinModal('${p.name}', '${p.ranks[currentView]}', '${currentView}', 'text-white')">
                 <div class="flex items-center space-x-6">
-                    <span class="text-gray-800 font-bold w-6">#${i + 1}</span>
+                    <span class="text-gray-700 font-black w-8">#${i + 1}</span>
                     <img src="https://mc-heads.net/avatar/${p.name}/48" class="w-10 h-10 rounded">
-                    <span class="font-bold text-lg">${p.name}</span>
+                    <span class="font-bold text-lg text-white">${p.name}</span>
                 </div>
                 <div class="text-red-500 font-black text-xl italic">${p.ranks[currentView]}</div>
             </div>`).join('');
@@ -120,30 +120,55 @@ function renderTiers() {
     }
 }
 
-// 4. Modal & Skin Logic (Baki code same)
-let skinViewer;
+// 6. 3D Skin Viewer Modal (Final Stable Version)
 async function openSkinModal(name, pts, tier, tClass) {
     document.getElementById('skinModal').style.display = 'flex';
     document.getElementById('modalName').innerText = name;
     document.getElementById('modalPts').innerText = pts;
     const badge = document.getElementById('modalTierBadge');
     badge.innerText = tier;
-    badge.className = `${tClass} bg-black/50 px-4 py-2 rounded-lg text-xs font-black uppercase tracking-widest mt-2 inline-block`;
+    badge.className = `${tClass} bg-black/50 px-4 py-2 rounded-lg text-xs font-black uppercase mt-2 inline-block`;
+
     const canvasDiv = document.getElementById('skinCanvasContainer');
-    canvasDiv.innerHTML = `<img src="https://mc-heads.net/body/${name}" class="h-full object-contain">`;
+    canvasDiv.innerHTML = ''; // Pehle image hatao
+
     try {
-        skinViewer = new skinview3d.SkinViewer({ width: 280, height: 380 });
-        await skinViewer.loadSkin(`https://mc-heads.net/skin/${name}`, { model: "auto-detect" });
-        canvasDiv.innerHTML = ''; 
+        if (skinViewer) {
+            skinViewer.dispose();
+            skinViewer = null;
+        }
+
+        // Naya Viewer banao
+        skinViewer = new skinview3d.SkinViewer({
+            width: 280,
+            height: 380
+        });
+
         canvasDiv.appendChild(skinViewer.canvas);
+
+        // Skin load karo
+        await skinViewer.loadSkin(`https://mc-heads.net/skin/${name}`);
+
+        // Animation set karo
         skinViewer.autoRotate = true;
-        skinViewer.animations.add(skinview3d.WalkingAnimation);
-    } catch (e) { console.log("3D viewer blocked/failed"); }
+        skinViewer.autoRotateSpeed = 0.6;
+        let walk = skinViewer.animations.add(skinview3d.WalkingAnimation);
+        walk.speed = 0.6;
+
+    } catch (e) {
+        console.error("3D Error:", e);
+        // Agar fail hua toh 2D Body dikhao
+        canvasDiv.innerHTML = `<img src="https://mc-heads.net/body/${name}" class="h-full object-contain">`;
+    }
 }
 
 function closeSkinModal() {
     document.getElementById('skinModal').style.display = 'none';
-    if(skinViewer) { skinViewer.dispose(); skinViewer = null; }
+    if(skinViewer) {
+        skinViewer.dispose();
+        skinViewer = null;
+    }
 }
 
+// Start
 window.onload = renderTiers;
