@@ -4,7 +4,7 @@ const tierPoints = {
     "LT3": 15, "HT4": 10, "LT4": 8, "HT5": 4, "LT5": 2, "None": 0
 };
 
-// 2. Player Data (Bas yahan player add karo, har tab mein apne aap dikhenge)
+// 2. Player Data
 const playersData = [
     { 
         name: "ANKITCRAFTFIRE", 
@@ -23,7 +23,7 @@ const playersData = [
         }
     },
     { 
-        name: "icy.krish_", 
+        name: "icykrish_", 
         ranks: {
             NetheritePotion: "none", DiamondPotion: "none", Crystals: "LT4",
             Swords: "none", Axe: "none", UHC: "none", SMP: "none",
