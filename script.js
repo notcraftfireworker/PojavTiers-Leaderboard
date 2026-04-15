@@ -9,27 +9,28 @@ const playersData = [
     { 
         name: "ANKITCRAFTFIRE", 
         ranks: {
-            NetheritePotion: "HT1", DiamondPotion: "LT1", Crystals: "HT2",
-            Swords: "HT1", Axe: "LT2", UHC: "HT3", SMP: "HT2",
-            Mace: "HT1", CartPvP: "None", DiamondSMP: "HT2"
+            NetheritePotion: "HT4", DiamondPotion: "LT4", Crystals: "LT4",
+            Swords: "LT4", Axe: "LT4", UHC: "HT4", SMP: "LT4",
+            Mace: "HT5", CartPvP: "LT4", DiamondSMP: "LT4"
         }
     },
     { 
-        name: "Dream", 
+        name: "Matrix_legit", 
         ranks: {
-            NetheritePotion: "HT1", DiamondPotion: "HT1", Crystals: "HT1",
-            Swords: "HT1", Axe: "HT1", UHC: "HT1", SMP: "HT1",
-            Mace: "HT1", CartPvP: "HT1", DiamondSMP: "HT1"
+            NetheritePotion: "HT3", DiamondPotion: "LT3", Crystals: "none",
+            Swords: "HT4", Axe: "HT4", UHC: "LT3", SMP: "LT3",
+            Mace: "none", CartPvP: "HT4", DiamondSMP: "LT3"
         }
     },
     { 
-        name: "Technoblade", 
+        name: "icy.krish_", 
         ranks: {
-            NetheritePotion: "HT2", DiamondPotion: "LT1", Crystals: "HT1",
-            Swords: "HT1", Axe: "HT1", UHC: "HT1", SMP: "HT1",
-            Mace: "HT3", CartPvP: "HT1", DiamondSMP: "HT1"
-        }
+            NetheritePotion: "none", DiamondPotion: "none", Crystals: "LT4",
+            Swords: "none", Axe: "none", UHC: "none", SMP: "none",
+            Mace: "HT3", CartPvP: "none", DiamondSMP: "none"
+       }
     }
+    
 ];
 
 let currentView = 'Overall';
