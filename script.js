@@ -17,7 +17,7 @@ const playersData = [
     { 
         name: "Matrix_legit", 
         ranks: {
-            NetheritePotion: "HT3", DiamondPotion: "LT3", Crystals: "none",
+            NetheritePotion: "HT3", DiamondPotion: "LT3", Crystals: "None",
             Swords: "HT4", Axe: "HT4", UHC: "LT3", SMP: "LT3",
             Mace: "none", CartPvP: "HT4", DiamondSMP: "LT3"
         }
@@ -25,17 +25,17 @@ const playersData = [
     { 
         name: "icykrish_", 
         ranks: {
-            NetheritePotion: "none", DiamondPotion: "none", Crystals: "LT4",
-            Swords: "none", Axe: "none", UHC: "none", SMP: "none",
-            Mace: "HT3", CartPvP: "none", DiamondSMP: "none"
+            NetheritePotion: "None", DiamondPotion: "none", Crystals: "LT4",
+            Swords: "None", Axe: "None", UHC: "None", SMP: "None",
+            Mace: "HT3", CartPvP: "None", DiamondSMP: "None"
        }
     },
     { 
         name: "MR_ZEX_444", 
         ranks: {
-            NetheritePotion: "none", DiamondPotion: "none", Crystals: "LT3",
-            Swords: "none", Axe: "none", UHC: "none", SMP: "none",
-            Mace: "none", CartPvP: "none", DiamondSMP: "none"
+            NetheritePotion: "None", DiamondPotion: "None", Crystals: "LT3",
+            Swords: "None", Axe: "None", UHC: "none", SMP: "None",
+            Mace: "None", CartPvP: "None", DiamondSMP: "None"
        }          
     }        
 ];
