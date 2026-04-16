@@ -29,8 +29,15 @@ const playersData = [
             Swords: "none", Axe: "none", UHC: "none", SMP: "none",
             Mace: "HT3", CartPvP: "none", DiamondSMP: "none"
        }
-    }
-    
+    },
+    { 
+        name: "MR_ZEX_444", 
+        ranks: {
+            NetheritePotion: "none", DiamondPotion: "none", Crystals: "LT3",
+            Swords: "none", Axe: "none", UHC: "none", SMP: "none",
+            Mace: "none", CartPvP: "none", DiamondSMP: "none"
+       }          
+    }        
 ];
 
 let currentView = 'Overall';
