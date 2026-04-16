@@ -37,7 +37,15 @@ const playersData = [
             Swords: "None", Axe: "None", UHC: "none", SMP: "None",
             Mace: "None", CartPvP: "None", DiamondSMP: "None"
        }          
-    }        
+    },
+    { 
+        name: "DEVIL_PLAYS2010", 
+        ranks: {
+            NetheritePotion: "LT3", DiamondPotion: "LT3", Crystals: "LT4",
+            Swords: "HT4", Axe: "LT3", UHC: "HT4", SMP: "HT3",
+            Mace: "LT4", CartPvP: "None", DiamondSMP: "HT3"
+       }
+    }
 ];
 
 let currentView = 'Overall';
