@@ -25,8 +25,8 @@ const playersData = [
     { 
         name: "icykrish_", 
         ranks: {
-            NetheritePotion: "None", DiamondPotion: "none", Crystals: "LT4",
-            Swords: "None", Axe: "None", UHC: "None", SMP: "None",
+            NetheritePotion: "HT4", DiamondPotion: "none", Crystals: "LT4",
+            Swords: "HT4", Axe: "None", UHC: "None", SMP: "LT3",
             Mace: "HT3", CartPvP: "None", DiamondSMP: "None"
        }
     },
