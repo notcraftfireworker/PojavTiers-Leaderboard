@@ -19,13 +19,13 @@ const playersData = [
         ranks: {
             NetheritePotion: "HT3", DiamondPotion: "LT3", Crystals: "None",
             Swords: "HT4", Axe: "HT4", UHC: "LT3", SMP: "LT3",
-            Mace: "none", CartPvP: "HT4", DiamondSMP: "LT3"
+            Mace: "None", CartPvP: "HT4", DiamondSMP: "LT3"
         }
     },
     { 
         name: "icykrish_", 
         ranks: {
-            NetheritePotion: "HT4", DiamondPotion: "none", Crystals: "LT4",
+            NetheritePotion: "HT4", DiamondPotion: "None", Crystals: "LT4",
             Swords: "HT4", Axe: "None", UHC: "None", SMP: "LT3",
             Mace: "HT3", CartPvP: "None", DiamondSMP: "None"
        }
@@ -34,7 +34,7 @@ const playersData = [
         name: "MR_ZEX_444", 
         ranks: {
             NetheritePotion: "None", DiamondPotion: "None", Crystals: "LT3",
-            Swords: "None", Axe: "None", UHC: "none", SMP: "None",
+            Swords: "None", Axe: "None", UHC: "None", SMP: "None",
             Mace: "None", CartPvP: "None", DiamondSMP: "None"
        }          
     },
