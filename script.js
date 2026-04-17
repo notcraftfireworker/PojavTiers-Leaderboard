@@ -41,7 +41,7 @@ const playersData = [
     { 
         name: "DEVIL_PLAYS2010", 
         ranks: {
-            NetheritePotion: "LT3", DiamondPotion: "LT3", Crystals: "LT4",
+            NetheritePotion: "LT3", DiamondPotion: "LT3", Crystals: "LT3",
             Swords: "HT4", Axe: "LT3", UHC: "HT4", SMP: "HT3",
             Mace: "LT4", CartPvP: "None", DiamondSMP: "HT3"
        }
