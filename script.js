@@ -14,7 +14,8 @@ const playersData = [
     { name: "DEVIL_PLAYS2010", region: "AS", ranks: { NetheritePotion: "LT3", DiamondPotion: "LT3", Crystals: "LT3", Swords: "HT4", Axe: "LT3", UHC: "HT4", SMP: "HT3", Mace: "LT4", CartPvP: "None", DiamondSMP: "HT3" } },
     { name: "KinciiV2", region: "AS", ranks: { NetheritePotion: "None", DiamondPotion: "None", Crystals: "LT4", Swords: "None", Axe: "None", UHC: "None", SMP: "None", Mace: "None", CartPvP: "None", DiamondSMP: "None" } },
     { name: "ibann1", region: "AS", ranks: { NetheritePotion: "None", DiamondPotion: "None", Crystals: "LT3", Swords: "None", Axe: "None", UHC: "None", SMP: "None", Mace: "None", CartPvP: "None", DiamondSMP: "None" } },
-    { name: "FrostyGirl", region: "AS", ranks: { NetheritePotion: "None", DiamondPotion: "None", Crystals: "HT4", Swords: "None", Axe: "None", UHC: "None", SMP: "None", Mace: "None", CartPvP: "None", DiamondSMP: "None" } }
+    { name: "FrostyGirl", region: "AS", ranks: { NetheritePotion: "None", DiamondPotion: "None", Crystals: "HT4", Swords: "None", Axe: "None", UHC: "None", SMP: "None", Mace: "None", CartPvP: "None", DiamondSMP: "None" } },
+    { name: "ItsFiqq", region: "AS", ranks: { NetheritePotion: "None", DiamondPotion: "None", Crystals: "LT3", Swords: "None", Axe: "None", UHC: "None", SMP: "None", Mace: "None", CartPvP: "None", DiamondSMP: "None" } }
 ];
 
 function switchTab(view) {
