@@ -2,27 +2,20 @@
 
 body { background-color: #0a0a0b; color: #e1e1e1; font-family: 'Poppins', sans-serif; overflow-x: hidden; }
 
-/* Scrollbar Hide */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* Tier Cards */
 .tier-card { background: #111113; border: 1px solid #222; border-radius: 16px; margin-bottom: 2.5rem; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
 .tier-header { padding: 1.2rem 1.5rem; border-bottom: 1px solid #222; background: rgba(255,255,255,0.02); }
 
-/* Rank Colors */
 .c-gm { color: #ff4757; text-shadow: 0 0 20px rgba(255, 71, 87, 0.4); } 
 .c-m { color: #ffa502; text-shadow: 0 0 20px rgba(255, 165, 2, 0.3); }  
 .c-ace { color: #2ed573; text-shadow: 0 0 20px rgba(46, 213, 115, 0.3); } 
 .c-novice { color: #54a0ff; text-shadow: 0 0 20px rgba(84, 160, 255, 0.3); } 
 
-/* Tab Buttons */
 .tab-btn { flex: 0 0 auto; background: #161618; border: 1px solid #222; padding: 10px 20px; border-radius: 12px; cursor: pointer; transition: 0.3s; font-size: 10px; font-weight: 800; color: #555; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.05em; }
 .tab-btn.active { background: #ef4444; color: white; border-color: #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.3); }
-.tab-btn:hover:not(.active) { border-color: #444; color: #aaa; }
 
-/* Modal */
 #skinModal { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.95); z-index: 100; align-items: center; justify-content: center; backdrop-filter: blur(12px); }
 #skinCanvasContainer { width: 280px; height: 380px; display: flex; align-items: center; justify-content: center; }
-
 #playerSearch:focus { border-color: #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.1); }

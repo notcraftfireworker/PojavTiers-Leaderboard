@@ -10,20 +10,19 @@ const playersData = [
     { name: "ANKITCRAFTFIRE", region: "AS", ranks: { NetheritePotion: "HT4", DiamondPotion: "LT4", Crystals: "HT4", Swords: "LT4", Axe: "LT4", UHC: "HT4", SMP: "LT4", Mace: "HT5", CartPvP: "LT4", DiamondSMP: "LT4" } },
     { name: "Matrix_legit", region: "AS", ranks: { NetheritePotion: "HT3", DiamondPotion: "LT3", Crystals: "None", Swords: "HT4", Axe: "HT4", UHC: "LT3", SMP: "LT3", Mace: "None", CartPvP: "HT4", DiamondSMP: "LT3" } },
     { name: "icykrish_", region: "AS", ranks: { NetheritePotion: "HT4", DiamondPotion: "None", Crystals: "LT4", Swords: "HT4", Axe: "None", UHC: "None", SMP: "LT3", Mace: "HT3", CartPvP: "None", DiamondSMP: "None" } },
+ { name: "ibann1", region: "AS", ranks: { NetheritePotion: "None", DiamondPotion: "None", Crystals: "LT3", Swords: "None", Axe: "None", UHC: "None", SMP: "None", Mace: "None", CartPvP: "None", DiamondSMP: "None" } },
+ { name: "FrostyGirl", region: "AS", ranks: { NetheritePotion: "None", DiamondPotion: "None", Crystals: "HT4", Swords: "None", Axe: "None", UHC: "None", SMP: "None", Mace: "None", CartPvP: "None", DiamondSMP: "None" } },
+    { name: "ItsFiqq", region: "AS", ranks: { NetheritePotion: "None", DiamondPotion: "None", Crystals: "LT3", Swords: "None", Axe: "None", UHC: "None", SMP: "None", Mace: "None", CartPvP: "None", DiamondSMP: "None" } },
     { name: "MR_ZEX_444", region: "AS", ranks: { NetheritePotion: "None", DiamondPotion: "None", Crystals: "LT3", Swords: "None", Axe: "None", UHC: "None", SMP: "None", Mace: "None", CartPvP: "None", DiamondSMP: "None" } },
     { name: "DEVIL_PLAYS2010", region: "AS", ranks: { NetheritePotion: "LT3", DiamondPotion: "LT3", Crystals: "HT3", Swords: "HT5", Axe: "LT3", UHC: "HT4", SMP: "HT3", Mace: "LT4", CartPvP: "None", DiamondSMP: "HT3" } },
     { name: "KinciiV2", region: "AS", ranks: { NetheritePotion: "None", DiamondPotion: "None", Crystals: "LT4", Swords: "None", Axe: "None", UHC: "None", SMP: "None", Mace: "None", CartPvP: "None", DiamondSMP: "None" } },
-    { name: "ibann1", region: "AS", ranks: { NetheritePotion: "None", DiamondPotion: "None", Crystals: "LT3", Swords: "None", Axe: "None", UHC: "None", SMP: "None", Mace: "None", CartPvP: "None", DiamondSMP: "None" } },
-    { name: "FrostyGirl", region: "AS", ranks: { NetheritePotion: "None", DiamondPotion: "None", Crystals: "HT4", Swords: "None", Axe: "None", UHC: "None", SMP: "None", Mace: "None", CartPvP: "None", DiamondSMP: "None" } },
-    { name: "ItsFiqq", region: "AS", ranks: { NetheritePotion: "None", DiamondPotion: "None", Crystals: "LT3", Swords: "None", Axe: "None", UHC: "None", SMP: "None", Mace: "None", CartPvP: "None", DiamondSMP: "None" } },
     { name: "CurzClaps", region: "AS", ranks: { NetheritePotion: "LT2", DiamondPotion: "None", Crystals: "None", Swords: "LT2", Axe: "HT3", UHC: "None", SMP: "None", Mace: "None", CartPvP: "None", DiamondSMP: "None" } }
 ];
 
 function switchTab(view) {
     currentView = view;
     document.querySelectorAll('.tab-btn').forEach(btn => {
-        const onclickAttr = btn.getAttribute('onclick');
-        btn.classList.toggle('active', onclickAttr.includes(`'${view}'`));
+        btn.classList.toggle('active', btn.getAttribute('onclick').includes(`'${view}'`));
     });
     renderTiers();
 }
@@ -57,9 +56,10 @@ function renderTiers() {
             if (!groups[g]) return;
             let rows = groups[g].map(p => {
                 const r = globalRank++;
+                const rankColor = r === 1 ? 'text-yellow-500' : r === 2 ? 'text-gray-300' : r === 3 ? 'text-orange-500' : 'text-gray-700';
                 return `<div class="flex items-center justify-between p-5 hover:bg-white/5 transition cursor-pointer border-b border-gray-900/40" onclick="openSkinModal('${p.name}', '${p.totalPoints} PTS', '${g}', '${p.grade.class}')">
                     <div class="flex items-center space-x-6">
-                        <span class="text-gray-700 font-black w-8">#${r}</span>
+                        <span class="${rankColor} font-black w-8">#${r}</span>
                         <img src="https://mc-heads.net/avatar/${p.name}/48" class="w-10 h-10 rounded shadow-lg">
                         <div class="flex flex-col">
                             <span class="font-bold text-lg text-white leading-none">${p.name}</span>
@@ -75,17 +75,24 @@ function renderTiers() {
         const sorted = [...playersData].filter(p => p.ranks[currentView] && p.ranks[currentView] !== "None")
             .sort((a, b) => (tierPoints[b.ranks[currentView]] || 0) - (tierPoints[a.ranks[currentView]] || 0));
 
-        let rows = sorted.map((p, i) => `<div class="flex items-center justify-between p-5 hover:bg-white/5 transition cursor-pointer border-b border-gray-900/40" onclick="openSkinModal('${p.name}', '${p.ranks[currentView]}', '${currentView}', 'text-white')">
-            <div class="flex items-center space-x-6">
-                <span class="text-gray-700 font-black w-8">#${i + 1}</span>
-                <img src="https://mc-heads.net/avatar/${p.name}/48" class="w-10 h-10 rounded shadow-lg">
-                <div class="flex flex-col">
-                    <span class="font-bold text-lg text-white leading-none">${p.name}</span>
-                    <span class="text-[9px] font-black text-gray-600 uppercase mt-1 tracking-widest">${p.region}</span>
+        let rows = sorted.map((p, i) => {
+            const r = i + 1;
+            const rankColor = r === 1 ? 'text-yellow-500' : r === 2 ? 'text-gray-300' : r === 3 ? 'text-orange-500' : 'text-gray-700';
+            const tierValue = p.ranks[currentView];
+            const tierColor = tierValue.startsWith('HT') ? 'text-red-500' : 'text-blue-400';
+
+            return `<div class="flex items-center justify-between p-5 hover:bg-white/5 transition cursor-pointer border-b border-gray-900/40" onclick="openSkinModal('${p.name}', '${tierValue}', '${currentView}', '${tierColor}')">
+                <div class="flex items-center space-x-6">
+                    <span class="${rankColor} font-black w-8">#${r}</span>
+                    <img src="https://mc-heads.net/avatar/${p.name}/48" class="w-10 h-10 rounded shadow-lg">
+                    <div class="flex flex-col">
+                        <span class="font-bold text-lg text-white leading-none">${p.name}</span>
+                        <span class="text-[9px] font-black text-gray-600 uppercase mt-1 tracking-widest">${p.region}</span>
+                    </div>
                 </div>
-            </div>
-            <div class="text-red-500 font-black text-xl italic">${p.ranks[currentView]}</div>
-        </div>`).join('');
+                <div class="${tierColor} font-black text-xl italic">${tierValue}</div>
+            </div>`;
+        }).join('');
         container.innerHTML = `<div class="tier-card"><div class="tier-header"><h2 class="text-white font-black uppercase italic text-xs tracking-widest">${currentView} Ranking</h2></div><div>${rows}</div></div>`;
     }
 }
@@ -97,38 +104,26 @@ function filterPlayers() {
         const name = row.querySelector('span.font-bold').innerText.toLowerCase();
         row.style.display = name.includes(query) ? "flex" : "none";
     });
-    document.querySelectorAll('.tier-card').forEach(section => {
-        const hasVisible = Array.from(section.querySelectorAll('div[onclick]')).some(r => r.style.display !== "none");
-        section.style.display = hasVisible ? "block" : "none";
-    });
 }
 
 async function openSkinModal(name, pts, tier, tClass) {
     const player = playersData.find(p => p.name === name);
     document.getElementById('skinModal').style.display = 'flex';
     document.getElementById('modalName').innerText = name;
-    document.getElementById('modalRegion').innerText = player ? `REGION: ${player.region}` : 'REGION: UNKNOWN';
+    document.getElementById('modalRegion').innerText = `REGION: ${player.region}`;
     document.getElementById('modalPts').innerText = pts;
     const badge = document.getElementById('modalTierBadge');
     badge.innerText = tier;
     badge.className = `${tClass} bg-black/50 px-4 py-2 rounded-lg text-xs font-black uppercase mt-2 inline-block border border-white/5`;
     const canvasDiv = document.getElementById('skinCanvasContainer');
     canvasDiv.innerHTML = '';
-    try {
-        if (skinViewer) skinViewer.dispose();
-        skinViewer = new skinview3d.SkinViewer({ width: 280, height: 380 });
-        canvasDiv.appendChild(skinViewer.canvas);
-        await skinViewer.loadSkin(`https://mc-heads.net/skin/${name}`);
-        skinViewer.autoRotate = true;
-        skinViewer.animations.add(skinview3d.WalkingAnimation);
-    } catch (e) {
-        canvasDiv.innerHTML = `<img src="https://mc-heads.net/body/${name}" class="h-full object-contain">`;
-    }
+    if (skinViewer) skinViewer.dispose();
+    skinViewer = new skinview3d.SkinViewer({ width: 280, height: 380 });
+    canvasDiv.appendChild(skinViewer.canvas);
+    await skinViewer.loadSkin(`https://mc-heads.net/skin/${name}`);
+    skinViewer.autoRotate = true;
+    skinViewer.animations.add(skinview3d.WalkingAnimation);
 }
 
-function closeSkinModal() {
-    document.getElementById('skinModal').style.display = 'none';
-    if(skinViewer) skinViewer.dispose();
-}
-
+function closeSkinModal() { document.getElementById('skinModal').style.display = 'none'; if(skinViewer) skinViewer.dispose(); }
 window.onload = renderTiers;
