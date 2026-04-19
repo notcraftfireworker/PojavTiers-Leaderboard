@@ -1,4 +1,3 @@
-let skinViewer = null;
 let currentView = 'Overall';
 
 const tierPoints = {
@@ -6,11 +5,12 @@ const tierPoints = {
     "LT3": 15, "HT4": 10, "LT4": 8, "HT5": 4, "LT5": 2, "None": 0
 };
 
+// Players Data (Wahi jo tune di thi)
 const playersData = [
-    { name: "ANKITCRAFTFIRE", region: "AS", ranks: { NetheritePotion: "HT4", DiamondPotion: "LT4", Crystals: "HT4", Swords: "LT4", Axe: "LT4", UHC: "HT4", SMP: "LT4", Mace: "HT5", CartPvP: "LT4", DiamondSMP: "LT4" } },
+    { name: "ANKITCRAFTFIRE", region: "AS", ranks: { NetheritePotion: "HT4", DiamondPotion: "LT4", Crystals: "LT4", Swords: "LT4", Axe: "LT4", UHC: "HT4", SMP: "LT4", Mace: "HT5", CartPvP: "LT4", DiamondSMP: "LT4" } },
     { name: "Matrix_legit", region: "AS", ranks: { NetheritePotion: "HT3", DiamondPotion: "LT3", Crystals: "None", Swords: "HT4", Axe: "HT4", UHC: "LT3", SMP: "LT3", Mace: "None", CartPvP: "HT4", DiamondSMP: "LT3" } },
     { name: "icykrish_", region: "AS", ranks: { NetheritePotion: "HT4", DiamondPotion: "None", Crystals: "LT4", Swords: "HT4", Axe: "None", UHC: "None", SMP: "LT3", Mace: "HT3", CartPvP: "None", DiamondSMP: "None" } },
- { name: "ibann1", region: "AS", ranks: { NetheritePotion: "None", DiamondPotion: "None", Crystals: "LT3", Swords: "None", Axe: "None", UHC: "None", SMP: "None", Mace: "None", CartPvP: "None", DiamondSMP: "None" } },
+{ name: "ibann1", region: "AS", ranks: { NetheritePotion: "None", DiamondPotion: "None", Crystals: "LT3", Swords: "None", Axe: "None", UHC: "None", SMP: "None", Mace: "None", CartPvP: "None", DiamondSMP: "None" } },
  { name: "FrostyGirl", region: "AS", ranks: { NetheritePotion: "None", DiamondPotion: "None", Crystals: "HT4", Swords: "None", Axe: "None", UHC: "None", SMP: "None", Mace: "None", CartPvP: "None", DiamondSMP: "None" } },
     { name: "ItsFiqq", region: "AS", ranks: { NetheritePotion: "None", DiamondPotion: "None", Crystals: "LT3", Swords: "None", Axe: "None", UHC: "None", SMP: "None", Mace: "None", CartPvP: "None", DiamondSMP: "None" } },
     { name: "MR_ZEX_444", region: "AS", ranks: { NetheritePotion: "None", DiamondPotion: "None", Crystals: "LT3", Swords: "None", Axe: "None", UHC: "None", SMP: "None", Mace: "None", CartPvP: "None", DiamondSMP: "None" } },
@@ -56,10 +56,13 @@ function renderTiers() {
             if (!groups[g]) return;
             let rows = groups[g].map(p => {
                 const r = globalRank++;
-                const rankColor = r === 1 ? 'text-yellow-500' : r === 2 ? 'text-gray-300' : r === 3 ? 'text-orange-500' : 'text-gray-700';
-                return `<div class="flex items-center justify-between p-5 hover:bg-white/5 transition cursor-pointer border-b border-gray-900/40" onclick="openSkinModal('${p.name}', '${p.totalPoints} PTS', '${g}', '${p.grade.class}')">
+                // Rank Special Rows logic (Purani wahi rakhi hai)
+                let rankClass = r === 1 ? 'rank-gold shine-row' : r === 2 ? 'rank-silver shine-row' : r === 3 ? 'rank-bronze shine-row' : '';
+                let rankNumColor = r === 1 ? 'text-[#ffd700]' : r === 2 ? 'text-[#c0c0c0]' : r === 3 ? 'text-[#cd7f32]' : 'text-gray-700';
+
+                return `<div class="flex items-center justify-between p-5 hover:bg-white/5 transition cursor-pointer border-b border-gray-900/40 ${rankClass}" onclick="openSkinModal('${p.name}', '${p.totalPoints} PTS', '${g}', '${p.grade.class}')">
                     <div class="flex items-center space-x-6">
-                        <span class="${rankColor} font-black w-8">#${r}</span>
+                        <span class="${rankNumColor} font-black w-8">#${r}</span>
                         <img src="https://mc-heads.net/avatar/${p.name}/48" class="w-10 h-10 rounded shadow-lg">
                         <div class="flex flex-col">
                             <span class="font-bold text-lg text-white leading-none">${p.name}</span>
@@ -69,7 +72,7 @@ function renderTiers() {
                     <div class="text-yellow-400 font-black font-mono text-lg">${p.totalPoints}</div>
                 </div>`;
             }).join('');
-            container.innerHTML += `<div class="tier-card mb-8"><div class="tier-header"><h2 class="${groups[g][0].grade.class} font-black uppercase italic tracking-tighter text-xs">${g}</h2></div><div class="divide-y divide-gray-900/20">${rows}</div></div>`;
+            container.innerHTML += `<div class="tier-card mb-8"><div class="tier-header"><h2 class="${groups[g][0].grade.class} font-black uppercase italic tracking-tighter text-xs">${g}</h2></div><div>${rows}</div></div>`;
         });
     } else {
         const sorted = [...playersData].filter(p => p.ranks[currentView] && p.ranks[currentView] !== "None")
@@ -77,13 +80,15 @@ function renderTiers() {
 
         let rows = sorted.map((p, i) => {
             const r = i + 1;
-            const rankColor = r === 1 ? 'text-yellow-500' : r === 2 ? 'text-gray-300' : r === 3 ? 'text-orange-500' : 'text-gray-700';
             const tierValue = p.ranks[currentView];
+            // HT/LT Color logic (Purani wahi rakhi hai)
             const tierColor = tierValue.startsWith('HT') ? 'text-red-500' : 'text-blue-400';
+            let rankClass = r === 1 ? 'rank-gold shine-row' : r === 2 ? 'rank-silver shine-row' : r === 3 ? 'rank-bronze shine-row' : '';
+            const rankNumColor = r === 1 ? 'text-[#ffd700]' : r === 2 ? 'text-[#c0c0c0]' : r === 3 ? 'text-[#cd7f32]' : 'text-gray-700';
 
-            return `<div class="flex items-center justify-between p-5 hover:bg-white/5 transition cursor-pointer border-b border-gray-900/40" onclick="openSkinModal('${p.name}', '${tierValue}', '${currentView}', '${tierColor}')">
+            return `<div class="flex items-center justify-between p-5 hover:bg-white/5 transition cursor-pointer border-b border-gray-900/40 ${rankClass}" onclick="openSkinModal('${p.name}', '${tierValue}', '${currentView}', '${tierColor}')">
                 <div class="flex items-center space-x-6">
-                    <span class="${rankColor} font-black w-8">#${r}</span>
+                    <span class="${rankNumColor} font-black w-8">#${r}</span>
                     <img src="https://mc-heads.net/avatar/${p.name}/48" class="w-10 h-10 rounded shadow-lg">
                     <div class="flex flex-col">
                         <span class="font-bold text-lg text-white leading-none">${p.name}</span>
@@ -99,31 +104,34 @@ function renderTiers() {
 
 function filterPlayers() {
     const query = document.getElementById('playerSearch').value.toLowerCase();
-    const rows = document.querySelectorAll('.tier-card div[onclick]');
-    rows.forEach(row => {
+    document.querySelectorAll('.tier-card div[onclick]').forEach(row => {
         const name = row.querySelector('span.font-bold').innerText.toLowerCase();
         row.style.display = name.includes(query) ? "flex" : "none";
     });
 }
 
-async function openSkinModal(name, pts, tier, tClass) {
+// Updated Modal function to load Circle Avatar
+function openSkinModal(name, pts, tier, tClass) {
     const player = playersData.find(p => p.name === name);
-    document.getElementById('skinModal').style.display = 'flex';
+    const modal = document.getElementById('skinModal');
+    
     document.getElementById('modalName').innerText = name;
-    document.getElementById('modalRegion').innerText = `REGION: ${player.region}`;
+    document.getElementById('modalRegion').innerText = player ? `REGION: ${player.region}` : 'REGION: AS';
     document.getElementById('modalPts').innerText = pts;
+    
     const badge = document.getElementById('modalTierBadge');
     badge.innerText = tier;
     badge.className = `${tClass} bg-black/50 px-4 py-2 rounded-lg text-xs font-black uppercase mt-2 inline-block border border-white/5`;
-    const canvasDiv = document.getElementById('skinCanvasContainer');
-    canvasDiv.innerHTML = '';
-    if (skinViewer) skinViewer.dispose();
-    skinViewer = new skinview3d.SkinViewer({ width: 280, height: 380 });
-    canvasDiv.appendChild(skinViewer.canvas);
-    await skinViewer.loadSkin(`https://mc-heads.net/skin/${name}`);
-    skinViewer.autoRotate = true;
-    skinViewer.animations.add(skinview3d.WalkingAnimation);
+    
+    // Set Big Circle Avatar from mc-heads.net
+    const avatarImg = document.getElementById('modalAvatar');
+    avatarImg.src = `https://mc-heads.net/avatar/${name}/128`; // High-res face
+    
+    modal.style.display = 'flex';
 }
 
-function closeSkinModal() { document.getElementById('skinModal').style.display = 'none'; if(skinViewer) skinViewer.dispose(); }
+function closeSkinModal() { 
+    document.getElementById('skinModal').style.display = 'none'; 
+}
+
 window.onload = renderTiers;
