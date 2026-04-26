@@ -8,66 +8,45 @@ body { background-color: #0a0a0b; color: #e1e1e1; font-family: 'Poppins', sans-s
 .tier-card { background: #111113; border: 1px solid #222; border-radius: 16px; margin-bottom: 2.5rem; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
 .tier-header { padding: 1.2rem 1.5rem; border-bottom: 1px solid #222; background: rgba(255,255,255,0.02); }
 
-/* Premium Ranks & Shine */
-.rank-gold { background: linear-gradient(90deg, rgba(255, 215, 0, 0.1) 0%, #111113 100%) !important; border-left: 4px solid #ffd700 !important; }
+/* Rank Row Backgrounds */
+.rank-gold { background: linear-gradient(90deg, rgba(168, 85, 247, 0.15) 0%, #111113 100%) !important; border-left: 4px solid #a855f7 !important; }
 .rank-silver { background: linear-gradient(90deg, rgba(192, 192, 192, 0.1) 0%, #111113 100%) !important; border-left: 4px solid #c0c0c0 !important; }
 .rank-bronze { background: linear-gradient(90deg, rgba(205, 127, 50, 0.1) 0%, #111113 100%) !important; border-left: 4px solid #cd7f32 !important; }
 
+/* Rank #1: Purple to Blue Gradient Glow */
+.name-gold {
+    background: linear-gradient(90deg, #a855f7, #60a5fa, #a855f7);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textShine 2s linear infinite;
+    filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.6));
+    font-weight: 900;
+}
+.name-silver { color: #c0c0c0; font-weight: 800; }
+.name-bronze { color: #cd7f32; font-weight: 800; }
+
+@keyframes textShine { to { background-position: 200% center; } }
+
+/* Shine Effect Animation */
 .shine-row { position: relative; overflow: hidden; }
 .shine-row::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -150%;
-    width: 60%;
-    height: 100%;
+    content: ""; position: absolute; top: 0; left: -150%; width: 60%; height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-    transform: skewX(-25deg);
-    animation: sweep 4s infinite ease-in-out;
+    transform: skewX(-25deg); animation: sweep 4s infinite ease-in-out;
 }
-
-@keyframes sweep {
-    0% { left: -150%; }
-    30% { left: 150%; }
-    100% { left: 150%; }
-}
+@keyframes sweep { 0% { left: -150%; } 30% { left: 150%; } 100% { left: 150%; } }
 
 /* Modal UI */
 #skinModal { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.9); z-index: 100; align-items: center; justify-content: center; backdrop-filter: blur(12px); }
+.big-circle { width: 220px; height: 220px; border-radius: 50%; border: 4px solid #222; background: #0a0a0b; overflow: hidden; display: flex; justify-content: center; align-items: flex-start; box-shadow: 0 0 40px rgba(0,0,0,0.9); }
+.waist-up-skin { width: auto; height: 280px; margin-top: 10px; object-fit: contain; image-rendering: pixelated; }
 
-.big-circle { 
-    width: 220px; 
-    height: 220px; 
-    border-radius: 50%; 
-    border: 4px solid #222; 
-    background: #0a0a0b; 
-    overflow: hidden; 
-    display: flex; 
-    justify-content: center; 
-    align-items: flex-start;
-    box-shadow: 0 0 40px rgba(0,0,0,0.9);
-}
-
-.waist-up-skin {
-    width: auto;
-    height: 280px; 
-    margin-top: 10px;
-    object-fit: contain;
-    image-rendering: pixelated; 
-}
-
-.modal-content-anim { animation: modalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
-
-@keyframes modalIn {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
-
-/* Rank Colors */
-.c-gm { color: #ff4757; text-shadow: 0 0 15px rgba(255, 71, 87, 0.3); } 
-.c-m { color: #ffa502; }  
-.c-ace { color: #2ed573; } 
-.c-novice { color: #54a0ff; } 
+/* Modal Rank Glows */
+.modal-gold { text-shadow: 0 0 25px rgba(168, 85, 247, 0.8); color: #c084fc !important; }
+.modal-silver { color: #c0c0c0 !important; }
+.modal-bronze { color: #cd7f32 !important; }
 
 .tab-btn { flex: 0 0 auto; background: #161618; border: 1px solid #222; padding: 10px 22px; border-radius: 12px; cursor: pointer; transition: 0.3s; font-size: 10px; font-weight: 800; color: #555; text-transform: uppercase; }
 .tab-btn.active { background: #ef4444; color: white; border-color: #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.2); }
+.c-gm { color: #ff4757; text-shadow: 0 0 10px rgba(255, 71, 87, 0.3); }
