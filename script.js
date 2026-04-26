@@ -5,9 +5,8 @@ const tierPoints = {
     "LT3": 15, "HT4": 10, "LT4": 8, "HT5": 4, "LT5": 2, "None": 0
 };
 
-// Players Data (Wahi jo tune di thi)
 const playersData = [
-    { name: "ANKITCRAFTFIRE", region: "AS", ranks: { NetheritePotion: "HT4", DiamondPotion: "LT4", Crystals: "HT4", Swords: "LT4", Axe: "LT4", UHC: "HT4", SMP: "LT4", Mace: "HT5", CartPvP: "LT4", DiamondSMP: "LT4" } },
+     { name: "ANKITCRAFTFIRE", region: "AS", ranks: { NetheritePotion: "HT4", DiamondPotion: "LT4", Crystals: "HT4", Swords: "LT4", Axe: "LT4", UHC: "HT4", SMP: "LT4", Mace: "HT5", CartPvP: "LT4", DiamondSMP: "LT4" } },
     { name: "Matrix_legit", region: "AS", ranks: { NetheritePotion: "HT3", DiamondPotion: "LT3", Crystals: "HT5", Swords: "HT4", Axe: "HT4", UHC: "LT3", SMP: "LT3", Mace: "None", CartPvP: "HT4", DiamondSMP: "LT3" } },
     { name: "icykrish_", region: "AS", ranks: { NetheritePotion: "HT4", DiamondPotion: "None", Crystals: "LT4", Swords: "HT4", Axe: "None", UHC: "None", SMP: "LT3", Mace: "HT3", CartPvP: "None", DiamondSMP: "None" } },
 { name: "ibann1", region: "AS", ranks: { NetheritePotion: "None", DiamondPotion: "None", Crystals: "LT3", Swords: "None", Axe: "None", UHC: "None", SMP: "None", Mace: "None", CartPvP: "None", DiamondSMP: "None" } },
@@ -59,8 +58,7 @@ function renderTiers() {
             if (!groups[g]) return;
             let rows = groups[g].map(p => {
                 const r = globalRank++;
-                // Rank Special Rows logic (Purani wahi rakhi hai)
-                let rankClass = r === 1 ? 'rank-gold shine-row' : r === 2 ? 'rank-silver shine-row' : r === 3 ? 'rank-bronze shine-row' : '';
+                let rankClass = r <= 3 ? `rank-${r===1?'gold':r===2?'silver':'bronze'} shine-row` : '';
                 let rankNumColor = r === 1 ? 'text-[#ffd700]' : r === 2 ? 'text-[#c0c0c0]' : r === 3 ? 'text-[#cd7f32]' : 'text-gray-700';
 
                 return `<div class="flex items-center justify-between p-5 hover:bg-white/5 transition cursor-pointer border-b border-gray-900/40 ${rankClass}" onclick="openSkinModal('${p.name}', '${p.totalPoints} PTS', '${g}', '${p.grade.class}')">
@@ -84,9 +82,8 @@ function renderTiers() {
         let rows = sorted.map((p, i) => {
             const r = i + 1;
             const tierValue = p.ranks[currentView];
-            // HT/LT Color logic (Purani wahi rakhi hai)
             const tierColor = tierValue.startsWith('HT') ? 'text-red-500' : 'text-blue-400';
-            let rankClass = r === 1 ? 'rank-gold shine-row' : r === 2 ? 'rank-silver shine-row' : r === 3 ? 'rank-bronze shine-row' : '';
+            let rankClass = r <= 3 ? `rank-${r===1?'gold':r===2?'silver':'bronze'} shine-row` : '';
             const rankNumColor = r === 1 ? 'text-[#ffd700]' : r === 2 ? 'text-[#c0c0c0]' : r === 3 ? 'text-[#cd7f32]' : 'text-gray-700';
 
             return `<div class="flex items-center justify-between p-5 hover:bg-white/5 transition cursor-pointer border-b border-gray-900/40 ${rankClass}" onclick="openSkinModal('${p.name}', '${tierValue}', '${currentView}', '${tierColor}')">
@@ -113,11 +110,8 @@ function filterPlayers() {
     });
 }
 
-// Updated Modal function to load Circle Avatar
 function openSkinModal(name, pts, tier, tClass) {
     const player = playersData.find(p => p.name === name);
-    const modal = document.getElementById('skinModal');
-    
     document.getElementById('modalName').innerText = name;
     document.getElementById('modalRegion').innerText = player ? `REGION: ${player.region}` : 'REGION: AS';
     document.getElementById('modalPts').innerText = pts;
@@ -126,15 +120,11 @@ function openSkinModal(name, pts, tier, tClass) {
     badge.innerText = tier;
     badge.className = `${tClass} bg-black/50 px-4 py-2 rounded-lg text-xs font-black uppercase mt-2 inline-block border border-white/5`;
     
-    // Set Big Circle Avatar from mc-heads.net
     const avatarImg = document.getElementById('modalAvatar');
-    avatarImg.src = `https://mc-heads.net/avatar/${name}/128`; // High-res face
+    avatarImg.src = `https://mc-heads.net/body/${name}/180`; 
     
-    modal.style.display = 'flex';
+    document.getElementById('skinModal').style.display = 'flex';
 }
 
-function closeSkinModal() { 
-    document.getElementById('skinModal').style.display = 'none'; 
-}
-
+function closeSkinModal() { document.getElementById('skinModal').style.display = 'none'; }
 window.onload = renderTiers;
